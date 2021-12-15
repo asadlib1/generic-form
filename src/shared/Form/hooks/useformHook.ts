@@ -42,10 +42,10 @@ const useFormHook = (
   };
 
   return {
+    onChange,
+    formSubmitHandler,
     inputValues,
     errors,
-    formSubmitHandler,
-    onChange,
   };
 };
 
