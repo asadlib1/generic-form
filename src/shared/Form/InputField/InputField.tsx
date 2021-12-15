@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { InputFieldError } from "../InputFieldError";
 import { TFormInputValue, TInputType, TInputErrors } from "../types";
 
@@ -30,10 +30,12 @@ const InputField: React.FC<IInputField> = ({
         id={name}
       />
       {errors &&
-        errors?.length > 0 &&
+        errors?.length &&
         errors.map((error, index) => (
           <InputFieldError key={`error${index}`} error={error} />
         ))}
     </div>
   );
 };
+
+export default memo(InputField);
