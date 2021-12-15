@@ -21,3 +21,7 @@ export type TFormInputValidation = {
 // Error type
 export type TInputError = string; // error message to be shown with the label
 export type TInputErrors = TInputError[];
+
+// Submission callback type
+export type TFormSubmitCallback = (data: TFormResponseData) => void;
+export type TFormResponseData = { [key: string]: unknown }[];
