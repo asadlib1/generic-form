@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -18,9 +18,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "removeComments": true,
+    "sourceMap": true,
+    "outDir": "build",
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
+    "types": ["node"],
+    "baseUrl": ".",
+    "downlevelIteration": true,
+    "noImplicitAny": false,
+
   },
   "include": [
-    "src"
+    "./src"
   ]
 }
