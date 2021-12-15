@@ -20,9 +20,17 @@ const InputField: React.FC<IInputField> = ({
   errors,
 }) => {
   return (
-    <div>
-      <label htmlFor={name}>{label}</label>
+    <div style={{ margin: "10px" }}>
+      <label
+        htmlFor={name}
+        style={{ display: "block", width: "300px", textAlign: "center" }}
+      >
+        {label}
+      </label>
       <input
+        style={{
+          width: "300px",
+        }}
         type={type}
         onChange={onChange}
         value={value}

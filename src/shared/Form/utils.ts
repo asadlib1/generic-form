@@ -13,18 +13,16 @@ export const getValidationData = (inputFields: any) => {
     (validationData: any, inputField: any) => {
       const {
         name,
-        validationType,
+        dataType,
         validationTypeError,
         validations = [],
       } = inputField;
       const isObject = name.indexOf(".") >= 0;
 
-      if (!yup[validationType]) {
+      if (!yup[dataType]) {
         return validationData;
       }
-      let validator = yup[validationType]().typeError(
-        validationTypeError || ""
-      );
+      let validator = yup[dataType]().typeError(validationTypeError || "");
       validations.forEach((validation) => {
         const { params, type } = validation;
         if (!validator[type]) {

@@ -7,7 +7,9 @@ interface IInputFieldError {
 }
 
 const InputFieldError: React.FC<IInputFieldError> = ({ error }) => (
-  <div>{error}</div>
+  <div style={{ color: "red", width: "300px", textAlign: "center" }}>
+    {error}
+  </div>
 );
 
 export default InputFieldError;

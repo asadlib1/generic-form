@@ -4,7 +4,7 @@ export type TFormDataObject = {
   name: string;
   label?: string;
   value?: TFormInputValue;
-  validationType?: string;
+  dataType?: string;
   validations?: TFormInputValidation[];
 };
 

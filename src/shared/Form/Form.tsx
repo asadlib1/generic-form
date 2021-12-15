@@ -25,7 +25,11 @@ const Form: React.FC<IForm> = ({ onSubmit, formData }) => {
           errors={errors[formElement.name]}
         />
       ))}
-      <input type="submit" value="Submit Form" />
+      <input
+        type="submit"
+        style={{ width: "310px", margin: "10px" }}
+        value="Submit Form"
+      />
     </form>
   );
 };
