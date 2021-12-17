@@ -1,21 +1,43 @@
 import { FC } from "react";
 import { useForm } from "../hooks/useForm";
 import "./Form.scss";
-
-interface IFormProps {
-  formData: any[];
-  validationData: any;
-  formTitle?: string;
+export interface Validation {
+  required?: {
+    value: boolean;
+    message: string;
+  };
+  pattern?: {
+    value: string;
+    message: string;
+  };
+  custom?: {
+    isValid: (value: string) => boolean;
+    message: string;
+  };
 }
 
-const Form: FC<IFormProps> = ({ validationData, formData, formTitle }) => {
+export interface IFormFieldsData {
+  field: string;
+  value?: string;
+  type: string;
+  required: boolean;
+  placeholder: string;
+}
+
+interface IFormProps {
+  formData: IFormFieldsData[];
+  validationSchema: Partial<Record<keyof any, Validation>>;
+  title?: string;
+}
+
+const Form: FC<IFormProps> = ({ validationSchema, formData, title }) => {
   const {
     handleSubmit,
     handleChange,
     data: user,
     errors,
   } = useForm<any>({
-    validations: validationData,
+    validations: validationSchema,
     onSubmit: () => alert("User submitted!"),
   });
 
@@ -27,7 +49,7 @@ const Form: FC<IFormProps> = ({ validationData, formData, formTitle }) => {
         console.log("Data", user);
       }}
     >
-      {formTitle && <h1>{formTitle}</h1>}
+      {title && <h1>{title}</h1>}
       {formData.map(({ type, required, field, value, placeholder }) => {
         return (
           <>

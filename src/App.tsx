@@ -1,21 +1,13 @@
 import React from "react";
 import "./App.css";
-import Form from "./Form/components/Form";
+import Form, { Validation, IFormFieldsData } from "./Form/components/Form";
 
-interface IFormData {
-  field: string;
-  value?: string;
-  type: string;
-  required: boolean;
-  placeholder: string;
-}
-
-const myUserValidation = {
-  name: {
+const validationSchema: Partial<Record<keyof any, Validation>> = {
+  firstName: {
     pattern: {
       value: "^[A-Za-z]*$",
       message:
-        "You're not allowed to use special characters or numbers in your name.",
+        "You cannot enter Spaces, special characters or numbers in your first name.",
     },
   },
   age: {
@@ -27,15 +19,15 @@ const myUserValidation = {
   password: {
     custom: {
       isValid: (value: string) => value.length > 6,
-      message: "The password needs to be at least 6 characters long.",
+      message: "Password needs to be at least 7 characters long.",
     },
   },
 };
 
-const inputData: IFormData[] = [
+const inputData: IFormFieldsData[] = [
   {
-    field: "name",
-    placeholder: "Name",
+    field: "firstName",
+    placeholder: "First Name",
     required: true,
     type: "text",
   },
@@ -58,8 +50,8 @@ function App() {
     <div className="App">
       <Form
         formData={inputData}
-        validationData={myUserValidation}
-        formTitle={"My Information"}
+        validationSchema={validationSchema}
+        title={"My Information"}
       />
     </div>
   );

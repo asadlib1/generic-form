@@ -1,19 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-
-export interface Validation {
-  required?: {
-    value: boolean;
-    message: string;
-  };
-  pattern?: {
-    value: string;
-    message: string;
-  };
-  custom?: {
-    isValid: (value: string) => boolean;
-    message: string;
-  };
-}
+import { Validation } from "../components/Form";
 
 type ErrorRecord<T> = Partial<Record<keyof T, string>>;
 
