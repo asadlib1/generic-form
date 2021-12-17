@@ -1,46 +1,139 @@
-# Getting Started with Create React App
+# Generic Form
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is an implementation for a generic form that consists of inputs of type texts, numbers, or password. You can import the Form in any component in app and provide props of appropriate types inorder to use it.
 
+#
+
+## API
+
+
+Props:
+<table>
+    <tr>
+        <th>Prop</th>
+        <th>Type</th>
+    </tr>
+    <tr>
+        <td>title</td>
+        <td>string</td>
+    </tr>
+    <tr>
+        <td>validationSchema</td>
+        <td>Partial< Record < keyof any, Validation>></td>
+    </tr>
+    <tr>
+        <td>formData</td>
+        <td>IFormFieldsData[]</td>
+    </tr>
+</table>
+
+Validation Interface: 
+<pre>
+interface Validation {
+  required?: {
+    value: boolean;
+    message: string;
+  };
+  pattern?: {
+    value: string;
+    message: string;
+  };
+  custom?: {
+    isValid: (value: string) => boolean;
+    message: string;
+  };
+}
+</pre>
+
+<table>
+    <tr>
+        <th>Validation Type</th>
+        <th>Usage</th>
+    </tr>
+    <tr>
+        <td>required</td>
+        <td>You can add required object to your field's schema in order to make is necessary field</td>
+    </tr>
+    <tr>
+        <td>pattern</td>
+        <td>You can use pattern to add a regex pattern to match the input</td>
+    </tr>
+    <tr>
+        <td>custom</td>
+        <td>You can add a custom method on input string to perform validations like min value, max value</td>
+    </tr>
+</table>
+
+IFormFieldsData interface 
+<pre>
+interface IFormFieldsData {
+  field: string;  // fields are used in validation schemas so it should not have spaces
+  value?: string;
+  type: string;
+  required: boolean;
+  placeholder: string;
+}
+</pre>
+
+## Usage
+
+As you have seen the above interfaces you can use the form component as following example given in App.ts:
+
+<pre>
+const validationSchema: Partial<Record<keyof any, Validation>> = {
+  firstName: {
+    pattern: {
+      value: "^[A-Za-z]*$",
+      message:
+        "You cannot enter Spaces, special characters or numbers in your first name.",
+    },
+  },
+  age: {
+    custom: {
+      isValid: (value: string) => parseInt(value, 10) > 17,
+      message: "You have to be at least 18 years old.",
+    },
+  },
+  password: {
+    custom: {
+      isValid: (value: string) => value.length > 6,
+      message: "Password needs to be at least 7 characters long.",
+    },
+  },
+};
+
+const inputData: IFormFieldsData[] = [
+  {
+    field: "firstName",
+    placeholder: "First Name",
+    required: true,
+    type: "text",
+  },
+  {
+    field: "age",
+    placeholder: "age",
+    required: true,
+    type: "number",
+  },
+  {
+    field: "password",
+    placeholder: "Password",
+    required: true,
+    type: "password",
+  },
+];
+
+    < Form
+        formData={inputData}
+        validationSchema={validationSchema}
+        title={"My Information"}
+    />
+
+</pre>
 ## Available Scripts
 
 In the project directory, you can run:
 
+### `npm install`
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
