@@ -1,6 +1,6 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from "react";
 
-interface Validation {
+export interface Validation {
   required?: {
     value: boolean;
     message: string;
